@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+  <net id="N_complex" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="page1">
+      <!-- Places -->
+      <place id="pStart"><name><text>Start</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="pA_req"><name><text>A_req</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="pB_req"><name><text>B_req</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="pA_done"><name><text>A_done</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="pB_done"><name><text>B_done</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="pChoice"><name><text>Choice</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="pC"><name><text>C</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="pDone"><name><text>Done</text></name><initialMarking><text>0</text></initialMarking></place>
+
+      <!-- Transitions -->
+      <transition id="tFork"><name><text>Fork</text></name></transition>
+      <transition id="tA"><name><text>A</text></name></transition>
+      <transition id="tB"><name><text>B</text></name></transition>
+      <transition id="tJoin"><name><text>Join</text></name></transition>
+      <transition id="tChoice1"><name><text>Choice1</text></name></transition>
+      <transition id="tC"><name><text>C</text></name></transition>
+
+      <!-- Arcs: fork into two parallel requests -->
+      <arc id="a1" source="pStart" target="tFork"><inscription><text>1</text></inscription></arc>
+      <arc id="a2" source="tFork" target="pA_req"><inscription><text>1</text></inscription></arc>
+      <arc id="a3" source="tFork" target="pB_req"><inscription><text>1</text></inscription></arc>
+
+      <!-- Complete A and B -->
+      <arc id="a4" source="pA_req" target="tA"><inscription><text>1</text></inscription></arc>
+      <arc id="a5" source="tA" target="pA_done"><inscription><text>1</text></inscription></arc>
+      <arc id="a6" source="pB_req" target="tB"><inscription><text>1</text></inscription></arc>
+      <arc id="a7" source="tB" target="pB_done"><inscription><text>1</text></inscription></arc>
+
+      <!-- Synchronizing join (needs both done) -->
+      <arc id="a8"  source="pA_done" target="tJoin"><inscription><text>1</text></inscription></arc>
+      <arc id="a9"  source="pB_done" target="tJoin"><inscription><text>1</text></inscription></arc>
+      <arc id="a10" source="tJoin"   target="pChoice"><inscription><text>1</text></inscription></arc>
+
+      <!-- After join, choose path 1 then go to C then Done -->
+      <arc id="a11" source="pChoice" target="tChoice1"><inscription><text>1</text></inscription></arc>
+      <arc id="a12" source="tChoice1" target="pC"><inscription><text>1</text></inscription></arc>
+      <arc id="a13" source="pC" target="tC"><inscription><text>1</text></inscription></arc>
+      <arc id="a14" source="tC" target="pDone"><inscription><text>1</text></inscription></arc>
+    </page>
+  </net>
+</pnml>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+  <net id="N_tiny_move" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="page1">
+      <place id="p1"><name><text>P1</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p2"><name><text>P2</text></name><initialMarking><text>0</text></initialMarking></place>
+      <transition id="t"><name><text>t</text></name></transition>
+      <arc id="a1" source="p1" target="t"><inscription><text>1</text></inscription></arc>
+      <arc id="a2" source="t" target="p2"><inscription><text>1</text></inscription></arc>
+    </page>
+  </net>
+</pnml>
